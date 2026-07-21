@@ -1,3 +1,3 @@
-flet==0.28.3
-flet-cli==0.28.3
-flet-audio
+# flet 和 flet_audio 的 Python 运行时由 `flet build apk` 自动打包进 APK，
+# 无需（也不应）在此列出 —— 列出会触发 flet-cli -> watchdog（无 Android wheel）导致打包失败。
+# 如果你的 app 以后引入其他纯 Python 第三方库，加在这里即可。
