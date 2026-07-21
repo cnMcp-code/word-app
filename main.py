@@ -4,7 +4,7 @@ import os
 import random
 import threading
 from datetime import datetime
-from flet_audio import Audio
+from flet import Audio  # 0.28.3 起 Audio 已并入 flet 核心，无需再依赖 flet_audio 包
 
 # ==================== 加载词库 ====================
 def load_word_list():
