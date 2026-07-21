@@ -4,7 +4,7 @@ import os
 import random
 import threading
 from datetime import datetime
-from flet import Audio  # 0.28.3 起 Audio 已并入 flet 核心，无需再依赖 flet_audio 包
+# 发音改用 page.launch_url 调起系统播放器（flet 0.28.3 核心 Audio 为废弃残桩，客户端无对应 widget）
 
 # ==================== 加载词库 ====================
 def load_word_list():
@@ -86,7 +86,6 @@ def main(page: ft.Page):
     quiz_questions = []
     quiz_index = 0
     current_dialog = None
-    audio_player = None
 
     # ---------- 辅助函数 ----------
     def get_today_date():
@@ -118,13 +117,10 @@ def main(page: ft.Page):
             page.update()
 
     def play_pronunciation(word):
-        nonlocal audio_player
-        if audio_player:
-            page.overlay.remove(audio_player)
+        # flet 0.28.3 核心 Audio 已废弃且无客户端 widget，无法在应用内播放；
+        # 改用系统播放器直接放音（Android 会调起媒体/浏览器播放该音频 URL）
         url = f"https://dict.youdao.com/dictvoice?audio={word}&type=2"
-        audio_player = Audio(src=url, autoplay=True)
-        page.overlay.append(audio_player)
-        page.update()
+        page.launch_url(url)
 
     # ---------- 页面切换 ----------
     def show_login():

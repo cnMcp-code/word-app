@@ -52,8 +52,8 @@ jobs:
             done
             echo "=== certifi in app.zip (app files) ==="
             unzip -l app.zip 2>/dev/null | grep -iE "certifi" || echo "(no certifi in app.zip)"
-            echo "=== main.py import line (must be 'from flet import Audio', NO flet_audio) ==="
-            unzip -p app.zip main.py 2>/dev/null | grep -iE "import Audio|flet_audio" || echo "(no import Audio found)"
+            echo "=== main.py audio approach (expect launch_url, NO flet_audio) ==="
+            unzip -p app.zip main.py 2>/dev/null | grep -iE "flet_audio|launch_url" || echo "(no audio refs found)"
           } > verify.txt 2>&1
           cat verify.txt
 
