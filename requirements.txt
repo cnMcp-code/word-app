@@ -1,13 +1,9 @@
-# flet / flet_audio 的 Python 运行时已由 `flet build apk` 自动打包进 APK，
-# 不要在此列出（列出会触发 flet-cli -> watchdog，watchdog 无 Android wheel，会导致打包失败）。
+# 保持为空！
 #
-# 但 flet 客户端运行时依赖的「纯 Python 包」需要显式列在这里，
-# 否则打包进 APK 的 Python 环境会缺它们，手机启动时报 ModuleNotFoundError。
-# 以下均为纯 Python（universal wheel），在 Android/arm 上可用：
-certifi          # flet -> httpx 的 HTTPS 证书库（缺它会报 No module named 'certifi'）
-httpx            # flet 客户端的 HTTP 依赖
-oauthlib         # flet 登录/鉴权依赖
-repath           # flet 路由依赖
-websocket-client # flet 与 Flutter 宿主的 websocket 通信
-typing-extensions
-packaging
+# flet / flet_audio 的 Python 运行时由 `flet build apk` 自动打包进 APK（它用安卓专用的干净包，
+# 绝不会拉 watchdog）。不要在这里写 flet —— 一旦非空，flet 的自动注入会被关闭，APK 里就没有
+# flet 运行时，手机启动会报 ModuleNotFoundError: No module named 'flet'。
+#
+# 应用需要的第三方纯 Python 依赖（如 certifi），用「随应用打包的本地副本」方式提供：
+# 本项目根目录下的 certifi/ 就是 vendored 的 certifi 包，会被一起打进 APK，
+# 从而修复安卓端 HTTPS 报 No module named 'certifi' 的问题。
