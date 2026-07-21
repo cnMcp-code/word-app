@@ -3,6 +3,13 @@ name = "word-app"
 version = "1.0.0"
 description = "宝宝背单词 - 儿童英语单词学习 App"
 
+# 重要：本项目刻意【不保留】根目录的 requirements.txt。
+# `flet build apk` 只有在根目录不存在 requirements.txt 时，才会自动把
+# flet（及传递依赖 flet_audio）打进 APK。一旦该文件存在（哪怕为空），
+# 自动注入会被跳过，导致手机端 ModuleNotFoundError: No module named 'flet'。
+# 应用所需的第三方纯 Python 依赖（如 certifi）用「根目录本地副本 certifi/」
+# 随应用打包的方式提供，不要写进 requirements.txt。
+
 [tool.flet]
 product = "宝宝背单词"
 artifact = "word_app"

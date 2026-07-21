@@ -1,9 +1,0 @@
-# 保持为空！
-#
-# flet / flet_audio 的 Python 运行时由 `flet build apk` 自动打包进 APK（它用安卓专用的干净包，
-# 绝不会拉 watchdog）。不要在这里写 flet —— 一旦非空，flet 的自动注入会被关闭，APK 里就没有
-# flet 运行时，手机启动会报 ModuleNotFoundError: No module named 'flet'。
-#
-# 应用需要的第三方纯 Python 依赖（如 certifi），用「随应用打包的本地副本」方式提供：
-# 本项目根目录下的 certifi/ 就是 vendored 的 certifi 包，会被一起打进 APK，
-# 从而修复安卓端 HTTPS 报 No module named 'certifi' 的问题。
