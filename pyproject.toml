@@ -1,0 +1,14 @@
+[project]
+name = "word-app"
+version = "1.0.0"
+description = "宝宝背单词 - 儿童英语单词学习 App"
+
+[tool.flet]
+product = "宝宝背单词"
+artifact = "word_app"
+org = "com.wordapp"
+bundle_id = "com.wordapp.wordapp"
+build_number = 1
+
+[tool.flet.android.permission]
+"android.permission.INTERNET" = true

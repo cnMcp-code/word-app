@@ -1,0 +1,49 @@
+name: Build APK (Cloud)
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+# Allow the workflow to create a GitHub Release (for the public APK download link)
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Flet
+        run: |
+          python -m pip install --upgrade pip
+          pip install "flet==0.28.3" flet-audio
+
+      - name: Build APK
+        run: echo y | flet build apk --verbose
+        env:
+          CI: "true"
+          FLET_ANALYTICS: "0"
+
+      - name: Create GitHub Release with APK
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: apk-${{ github.run_number }}
+          name: 宝宝背单词 APK (${{ github.run_number }})
+          files: build/apk/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
